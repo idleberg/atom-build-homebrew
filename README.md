@@ -1,4 +1,4 @@
-# build-makensis
+# build-homebrew
 
 [![apm](https://flat.badgen.net/apm/license/build-homebrew)](https://atom.io/packages/build-homebrew)
 [![apm](https://flat.badgen.net/apm/v/build-homebrew)](https://atom.io/packages/build-homebrew)
@@ -7,21 +7,15 @@
 [![David](https://flat.badgen.net/david/dep/idleberg/atom-build-homebrew)](https://david-dm.org/idleberg/atom-build-homebrew)
 [![David](https://flat.badgen.net/david/dev/idleberg/atom-build-homebrew)](https://david-dm.org/idleberg/atom-build-homebrew?type=dev)
 
-[Atom Build](https://atombuild.github.io/) provider for makensis, compiles [NSIS](https://nsis.sourceforge.net). Supports the [linter](https://atom.io/packages/linter) package for error and warning highlighting.
-
-If you're preferred NSIS version is not available on your non-Windows platform, have a look at the separate [build-makensis-wine](https://atom.io/packages/build-makensis-wine) package.
-
-![Screenshot](https://raw.githubusercontent.com/idleberg/atom-build-makensis/master/screenshot.png)
-
-*See the linter in action (the theme is [Hopscotch](https://atom.io/packages/hopscotch))*
+[Atom Build](https://atombuild.github.io/) provider for Homebrew. Audits, tests and builds Homebrew formulas
 
 ## Installation
 
 ### apm
 
-Install `build-makensis` from Atom's [Package Manager](http://flight-manual.atom.io/using-atom/sections/atom-packages/) or the command-line equivalent:
+Install `build-homebrew` from Atom's [Package Manager](http://flight-manual.atom.io/using-atom/sections/atom-packages/) or the command-line equivalent:
 
-`$ apm install build-makensis`
+`$ apm install build-homebrew`
 
 ### Using Git
 
@@ -35,10 +29,10 @@ $ cd %USERPROFILE%\.atom\packages
 $ cd ~/.atom/packages/
 ```
 
-Clone repository as `build-makensis`:
+Clone repository as `build-homebrew`:
 
 ```bash
-$ git clone https://github.com/idleberg/atom-build-makensis build-makensis
+$ git clone https://github.com/idleberg/atom-build-homebrew build-homebrew
 ```
 
 Inside the cloned directory, install Node dependencies:
@@ -55,9 +49,12 @@ Before you can build, select an active target with your preferred build option.
 
 Available targets:
 
-* `makensis` — compile *as-is* (<kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>B</kbd>)
-* `makensis (strict)` – compile and stop at warnings, requires NSIS 3 (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Super</kbd>+<kbd>B</kbd>)
-* `makensis (user)` – compile with custom arguments specified in the package settings (<kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>U</kbd>)
+- Homebrew Audit: strict
+- Homebrew Audit: New Formula
+- Homebrew Install: Build from Source
+- Homebrew Re-install: Build from Source
+- Homebrew Uninstall
+- Homebrew Test
 
 ### Shortcuts
 
@@ -85,4 +82,4 @@ This work is dual-licensed under [The MIT License](https://opensource.org/licens
 
 ## Donate
 
-You are welcome support this project using [Flattr](https://flattr.com/submit/auto?user_id=idleberg&url=https://github.com/idleberg/atom-build-makensis) or Bitcoin `17CXJuPsmhuTzFV2k4RKYwpEHVjskJktRd`
+You are welcome support this project using [Flattr](https://flattr.com/submit/auto?user_id=idleberg&url=https://github.com/idleberg/atom-build-homebrew) or Bitcoin `17CXJuPsmhuTzFV2k4RKYwpEHVjskJktRd`
