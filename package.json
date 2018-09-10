@@ -1,0 +1,55 @@
+{
+  "name": "build-homebrew",
+  "version": "0.0.0",
+  "description": "Atom Build provider for Homebrew formulas",
+  "repository": "https://github.com/idleberg/atom-build-homebrew",
+  "license": "MIT",
+  "keywords": [
+    "buildprovider",
+    "compile",
+    "homebrew",
+    "brew",
+    "formula"
+  ],
+  "main": "lib/provider.js",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "providedServices": {
+    "builder": {
+      "description": "Builds and audits Homebrew formulas",
+      "versions": {
+        "2.0.0": "provideBuilder"
+      }
+    }
+  },
+  "package-deps": [
+    "build"
+  ],
+  "dependencies": {
+    "atom-package-deps": "^4.6.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "coffeelint-stylish": "^0.1.2",
+    "eslint": "^4.17.0",
+    "eslint-config-atom-build": "^4.0.0",
+    "gulp": "^4.0.0",
+    "gulp-coffeelint": "^0.6.0",
+    "gulp-debug": "^3.2.0",
+    "gulp-eslint": "^4.0.2",
+    "gulp-jsonlint": "^1.2.1",
+    "gulp-lesshint": "^4.1.0"
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "atom-build",
+    "rules": {
+      "consistent-return": 0,
+      "no-console": 0
+    }
+  },
+  "scripts": {
+    "test": "gulp lint"
+  }
+}
