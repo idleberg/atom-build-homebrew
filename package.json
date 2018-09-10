@@ -27,19 +27,19 @@
     "build"
   ],
   "dependencies": {
-    "atom-package-deps": "^4.6.1"
+    "atom-package-deps": "^4.6.2"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.1",
+    "babel-eslint": "^9.0.0",
     "coffeelint-stylish": "^0.1.2",
-    "eslint": "^4.17.0",
+    "eslint": "^5.5.0",
     "eslint-config-atom-build": "^4.0.0",
     "gulp": "^4.0.0",
     "gulp-coffeelint": "^0.6.0",
-    "gulp-debug": "^3.2.0",
-    "gulp-eslint": "^4.0.2",
-    "gulp-jsonlint": "^1.2.1",
-    "gulp-lesshint": "^4.1.0"
+    "gulp-debug": "^4.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-jsonlint": "^1.2.2",
+    "gulp-lesshint": "^5.0.2"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
