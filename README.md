@@ -5,7 +5,6 @@
 [![apm](https://flat.badgen.net/apm/dl/build-homebrew)](https://atom.io/packages/build-homebrew)
 [![CircleCI](https://flat.badgen.net/circleci/github/idleberg/atom-build-homebrew)](https://circleci.com/gh/idleberg/atom-build-homebrew)
 [![David](https://flat.badgen.net/david/dep/idleberg/atom-build-homebrew)](https://david-dm.org/idleberg/atom-build-homebrew)
-[![David](https://flat.badgen.net/david/dev/idleberg/atom-build-homebrew)](https://david-dm.org/idleberg/atom-build-homebrew?type=dev)
 
 [Atom Build](https://atombuild.github.io/) provider for Homebrew. Audits, tests and builds Homebrew formulas
 
