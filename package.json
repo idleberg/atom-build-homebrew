@@ -4,6 +4,12 @@
   "description": "Atom Build provider for Homebrew formulas",
   "repository": "https://github.com/idleberg/atom-build-homebrew",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode none",
+    "dev": "webpack --mode none --watch",
+    "lint": "eslint ./src",
+    "test": "npm run lint"
+  },
   "keywords": [
     "buildprovider",
     "compile",
@@ -15,6 +21,9 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
+  "activationHooks": [
+    "language-ruby:grammar-used"
+  ],
   "providedServices": {
     "builder": {
       "description": "Builds and audits Homebrew formulas",
@@ -30,16 +39,14 @@
     "atom-package-deps": "^5.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
     "babel-eslint": "^10.0.2",
-    "coffeelint-stylish": "^0.1.2",
-    "eslint": "^5.16.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.0.0",
     "eslint-config-atom-build": "^4.0.0",
-    "gulp": "^4.0.2",
-    "gulp-coffeelint": "^0.6.0",
-    "gulp-debug": "^4.0.0",
-    "gulp-eslint": "^5.0.0",
-    "gulp-jsonlint": "^1.3.0",
-    "gulp-lesshint": "^6.1.0"
+    "husky": "^2.4.1",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -49,7 +56,9 @@
       "no-console": 0
     }
   },
-  "scripts": {
-    "test": "gulp lint"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
   }
 }
