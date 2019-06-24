@@ -85,11 +85,11 @@ export function provideBuilder() {
       }
 
       const cmd = await spawnPromise(which(), ['brew']);
-      if (!cmd.stdout.toString()) {
-        return false;
+      if (cmd.stdout && cmd.stdout.toString()) {
+        return true;
       }
 
-      return true;
+      return false;
     }
 
     settings() {
