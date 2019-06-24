@@ -1,7 +1,8 @@
 'use babel';
 
 import { EventEmitter } from 'events';
-import { spawnSync } from 'child_process';
+import { install } from 'atom-package-deps';
+import { spawn } from 'child_process';
 import { platform } from 'os';
 
 // Package settings
@@ -25,36 +26,46 @@ export const config = {
 };
 
 export function satisfyDependencies() {
-  let k;
-  let v;
+  install(meta.name);
 
-  require('atom-package-deps').install(meta.name);
+  const packageDeps = meta['package-deps'];
 
-  const ref = meta['package-deps'];
-  const results = [];
-
-  for (k in ref) {
-    if (typeof ref !== 'undefined' && ref !== null) {
-      v = ref[k];
-      if (atom.packages.isPackageDisabled(v)) {
-        if (atom.inDevMode()) {
-          console.log('Enabling package \'' + v + '\'');
-        }
-        results.push(atom.packages.enablePackage(v));
-      } else {
-        results.push(void 0);
+  packageDeps.forEach( packageDep => {
+    if (packageDep) {
+      if (atom.packages.isPackageDisabled(packageDep)) {
+        if (atom.inDevMode()) console.log(`Enabling package '${packageDep}\'`);
+        atom.packages.enablePackage(packageDep);
       }
     }
-  }
-  return results;
+  });
+}
+
+function spawnPromise(cmd, args) {
+  return new Promise(function (resolve, reject) {
+    const child = spawn(cmd, args);
+    let stdOut;
+    let stdErr;
+
+    child.stdout.on('data', function (line) {
+      stdOut += line.toString().trim();
+    });
+
+    child.stderr.on('data', function (line) {
+      stdErr += line.toString().trim();
+    });
+
+    child.on('close', function (code) {
+      if (code === 0) {
+        resolve(stdOut);
+      }
+
+      reject(stdErr);
+    });
+  });
 }
 
 export function which() {
-  if (platform() === 'win32') {
-    return 'where';
-  }
-
-  return 'which';
+  return (platform() === 'win32') ? 'where' : 'which';
 }
 
 export function provideBuilder() {
@@ -68,12 +79,12 @@ export function provideBuilder() {
       return 'Homebrew';
     }
 
-    isEligible() {
-      if (atom.config.get(meta.name + '.alwaysEligible') === true) {
+    async isEligible() {
+      if (atom.config.get(`${meta.name}.alwaysEligible`) === true) {
         return true;
       }
 
-      const cmd = spawnSync(which(), ['brew']);
+      const cmd = await spawnPromise(which(), ['brew']);
       if (!cmd.stdout.toString()) {
         return false;
       }
@@ -146,7 +157,7 @@ export function provideBuilder() {
 
 // This package depends on build, make sure it's installed
 export function activate() {
-  if (atom.config.get(meta.name + '.manageDependencies') === true) {
+  if (atom.config.get(`${meta.name}.manageDependencies`) === true) {
     satisfyDependencies();
   }
 }
