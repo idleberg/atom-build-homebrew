@@ -1,6 +1,6 @@
 {
   "name": "build-homebrew",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Atom Build provider for Homebrew formulas",
   "repository": "https://github.com/idleberg/atom-build-homebrew",
   "license": "MIT",
