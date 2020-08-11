@@ -78,7 +78,3 @@ Here's a reminder of the default shortcuts you can use with this package:
 ## License
 
 This work is licensed under [The MIT License](https://opensource.org/licenses/MIT)
-
-## Donate
-
-You are welcome to support this project using [Flattr](https://flattr.com/submit/auto?user_id=idleberg&url=https://github.com/idleberg/atom-build-homebrew) or Bitcoin `17CXJuPsmhuTzFV2k4RKYwpEHVjskJktRd`
