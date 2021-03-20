@@ -1,9 +1,11 @@
-'use babel';
-
+import { configSchema, getConfig } from './config';
 import { EventEmitter } from 'events';
-import { install } from 'atom-package-deps';
-import { spawn } from 'child_process';
-import { platform } from 'os';
+import { satisfyDependencies } from 'atom-satisfy-dependencies';
+import { spawnSync } from 'child_process';
+import { which } from './util';
+import meta from '../package.json';
+
+export { configSchema as config };
 
 // Package settings
 import meta from '../package.json';
@@ -25,49 +27,6 @@ export const config = {
   }
 };
 
-export function satisfyDependencies() {
-  install(meta.name);
-
-  const packageDeps = meta['package-deps'];
-
-  packageDeps.forEach( packageDep => {
-    if (packageDep) {
-      if (atom.packages.isPackageDisabled(packageDep)) {
-        if (atom.inDevMode()) console.log(`Enabling package '${packageDep}\'`);
-        atom.packages.enablePackage(packageDep);
-      }
-    }
-  });
-}
-
-function spawnPromise(cmd, args) {
-  return new Promise(function (resolve, reject) {
-    const child = spawn(cmd, args);
-    let stdOut;
-    let stdErr;
-
-    child.stdout.on('data', function (line) {
-      stdOut += line.toString().trim();
-    });
-
-    child.stderr.on('data', function (line) {
-      stdErr += line.toString().trim();
-    });
-
-    child.on('close', function (code) {
-      if (code === 0) {
-        resolve(stdOut);
-      }
-
-      reject(stdErr);
-    });
-  });
-}
-
-export function which() {
-  return (platform() === 'win32') ? 'where' : 'which';
-}
-
 export function provideBuilder() {
   return class HomebrewProvider extends EventEmitter {
     constructor(cwd) {
@@ -79,17 +38,16 @@ export function provideBuilder() {
       return 'Homebrew';
     }
 
-    async isEligible() {
-      if (atom.config.get(`${meta.name}.alwaysEligible`) === true) {
+    isEligible() {
+      if (getConfig('alwaysEligible') === true) {
         return true;
       }
 
-      const cmd = await spawnPromise(which(), ['brew']);
-      if (cmd.stdout && cmd.stdout.toString()) {
-        return true;
-      }
+      const cmd = spawnSync(which(), ['brew']);
 
-      return false;
+      return cmd?.stdout?.toString()
+        ? true
+        : false;
     }
 
     settings() {
@@ -157,7 +115,7 @@ export function provideBuilder() {
 
 // This package depends on build, make sure it's installed
 export function activate() {
-  if (atom.config.get(`${meta.name}.manageDependencies`) === true) {
-    satisfyDependencies();
+  if (getConfig('manageDependencies') === true) {
+    satisfyDependencies(meta.name);
   }
 }

@@ -3,7 +3,11 @@ bower_components/
 node_modules/
 npm-debug.log*
 vendor/
+yarn.lock
+
+# Development
+.eslintcache
 
 # Project specific
-*.js.map
+lib/*LICENSE.txt
 todo.md

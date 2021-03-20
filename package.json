@@ -4,12 +4,6 @@
   "description": "Atom Build provider for Homebrew formulas",
   "repository": "https://github.com/idleberg/atom-build-homebrew",
   "license": "MIT",
-  "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack --mode none --watch",
-    "lint": "eslint ./src",
-    "test": "npm run lint"
-  },
   "keywords": [
     "buildprovider",
     "compile",
@@ -33,32 +27,47 @@
     }
   },
   "package-deps": [
-    "build"
+    {
+      "name": "buildium"
+    }
   ],
   "dependencies": {
-    "atom-package-deps": "^5.1.0"
+    "atom-package-deps": "^7.2.2",
+    "atom-satisfy-dependencies": "^0.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "babel-eslint": "^10.0.2",
-    "babel-loader": "^8.0.6",
-    "eslint": "^6.0.0",
-    "eslint-config-atom-build": "^4.0.0",
-    "husky": "^2.4.1",
-    "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.5"
+    "@babel/eslint-parser": "^7.13.10",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.8",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "eslint": "^7.2.2",
+    "eslint-plugin-json": "^2.1.2",
+    "husky": ">=4 <5",
+    "lint-staged": "^10.5.4",
+    "npm-run-all": "^4.1.5",
+    "remark-cli": "^9.0.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.42.0",
+    "rollup-plugin-terser": "^7.0.2"
   },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "atom-build",
-    "rules": {
-      "consistent-return": 0,
-      "no-console": 0
-    }
+  "scripts": {
+    "build": "npm run clean && rollup --config",
+    "clean": "rimraf ./lib",
+    "dev": "npm run start",
+    "lint:md": "remark . --quiet --frail --ignore-path .gitignore",
+    "lint:js": "eslint ./src --ignore-path .gitignore",
+    "lint": "npm-run-all --parallel lint:*",
+    "start": "rollup --watch --config",
+    "test": "npm run lint"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
