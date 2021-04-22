@@ -18,6 +18,9 @@
   "activationHooks": [
     "language-ruby:grammar-used"
   ],
+  "activationHooks": [
+    "core:loaded-shell-environment"
+  ],
   "providedServices": {
     "builder": {
       "description": "Builds and audits Homebrew formulas",
